@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsc-watch --onSuccess \"node dist/index.js\"",
+    "build": "npx esbuild src/index.ts --bundle --outfile=dist/index.js --platform=node --tsconfig=tsconfig.json",
     "start": "node dist/index.js",
-    "build": "tsc -p tsconfig.json"
+    "dev": "npm run build && npm run start"
   },
   "keywords": [],
   "author": "",
@@ -15,9 +15,15 @@
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
     "@types/express": "^5.0.3",
-    "@types/multer": "^1.4.13"
+    "@types/multer": "^1.4.13",
+    "esbuild": "^0.25.5"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.835.0",
+    "@aws-sdk/s3-request-presigner": "^3.835.0",
+    "@repo/db": "workspace:*",
+    "cloudinary": "^2.7.0",
+    "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "multer": "^2.0.1",
     "tsc-watch": "^7.1.1"

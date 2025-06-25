@@ -12,6 +12,7 @@ const storage = mutler.diskStorage({
     cb(null, `${baseName}-${uniqueSuffix}${ext}`);
   },
 });
+
 const upload = mutler({ storage });
 
 export default upload;

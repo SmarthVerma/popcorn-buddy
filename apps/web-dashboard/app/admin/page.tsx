@@ -37,8 +37,6 @@ const AdminUI = () => {
     "sci-fi",
     "thriller",
     "fantasy",
-    "documentary",
-    "animation",
   ];
   const supportedFormats = [".mp4", ".avi", ".mov", ".mkv", ".webm"];
 
