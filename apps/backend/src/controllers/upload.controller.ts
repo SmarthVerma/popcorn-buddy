@@ -3,9 +3,9 @@ import { client } from "@repo/db/client";
 import fs from "fs";
 import { getThumbnailUrl, movieSlug } from "../helpers/awsHelpers";
 import asyncHandler from "../utils/asynchandler";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
-
-export const uploadMovie = asyncHandler(async (req: any, res: any) => {
+export const uploadMovieMetadata = asyncHandler(async (req: any, res: any) => {
   const { title, genre, platform } = req.body;
   const files = req.files as { [fieldname: string]: Express.Multer.File[] };
 
@@ -31,12 +31,11 @@ export const uploadMovie = asyncHandler(async (req: any, res: any) => {
   // Access the uploaded files
 
   const thumbnailPath = files.thumbnail[0]?.path!;
-
+  const moviePath = files.movie[0]?.path!;
 
   const fileExtension = files.thumbnail[0]?.mimetype?.split("/")[1] || "jpg";
 
   const key = `${title}/${movieSlug(title, fileExtension)}`;
-
 
   const putCommand = new PutObjectCommand({
     Bucket: process.env.AWS_S3_BUCKET_NAME!,
@@ -46,7 +45,9 @@ export const uploadMovie = asyncHandler(async (req: any, res: any) => {
     ACL: "public-read", // Make the file publicly readable
   });
 
-  const thumbnailUrl = getThumbnailUrl(`${title}/${movieSlug(title, fileExtension)}`);
+  const thumbnailUrl = getThumbnailUrl(
+    `${title}/${movieSlug(title, fileExtension)}`
+  );
 
   const response = await s3Client.send(putCommand);
 
@@ -70,5 +71,34 @@ export const uploadMovie = asyncHandler(async (req: any, res: any) => {
       thumbnail: movieData.thumbnail,
       key: movieData.key,
     },
-  })
+  });
+});
+
+export const getMovieUploadUrl = asyncHandler(async (req: any, res: any) => {
+  const { title, fileType } = req.body;
+
+  if (!title || !fileType) {
+    return res.status(400).json({ error: "Title and fileType are required." });
+  }
+
+  const s3Client = new S3Client({
+    region: process.env.AWS_REGION!,
+    credentials: {
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+    },
+  });
+
+  const key = `${title}/${movieSlug(title)}.${fileType}`;
+
+  const command = new PutObjectCommand({
+    Bucket: process.env.AWS_S3_BUCKET_NAME!,
+    Key: key,
+    ContentType: `video/${fileType}`,
+    ACL: "public-read", // Make the file accessible
+  });
+
+  const uploadUrl = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
+
+  res.json({ uploadUrl, key });
 });
