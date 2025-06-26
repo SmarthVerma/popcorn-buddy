@@ -37,9 +37,9 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-primary flex">
+    <div className="min-h-screen bg-slate-900 flex">
       {/* Left Side - Enhanced Visual Section */}
-      <div className="hidden lg:flex lg:flex-1 bg-gradient-to-br from-blue-primary via-secondary to-primary relative overflow-hidden">
+      <div className="hidden lg:flex lg:flex-1 bg-gradient-to-br from-blue-900 via-slate-800 to-slate-900 relative overflow-hidden">
         {/* Background Image with Low Opacity */}
         <div className="absolute inset-0 opacity-15">
           <Image
