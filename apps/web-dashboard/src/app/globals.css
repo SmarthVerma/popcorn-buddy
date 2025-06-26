@@ -1,2 +1,54 @@
+:root {
+  --color-primary: #0f172a; /* slate-900 */
+  --color-secondary: oklch(27.9% 0.041 260.031); /* slate-50 */
+  --color-blue-primary: oklch(37.9% 0.146 265.522); /* blue-900 */
+
+}
+
 @import "tailwindcss";
 
+@theme inline {
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-blue-primary: var(--color-blue-primary);
+  /* --color-foreground: var(--color-text-primary);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --color-sidebar-ring: var(--color-border);
+  --color-sidebar-border: var(--color-border);
+  --color-sidebar-accent-foreground: var(--color-text-primary);
+  --color-sidebar-accent: var(--color-accent-blue);
+  --color-sidebar-primary-foreground: var(--color-text-primary);
+  --color-sidebar-primary: var(--color-bg-secondary);
+  --color-sidebar-foreground: var(--color-text-secondary);
+  --color-sidebar: var(--color-bg-primary);
+
+  --color-chart-5: var(--color-accent-purple);
+  --color-chart-4: var(--color-accent-green);
+  --color-chart-3: var(--color-accent-red);
+  --color-chart-2: var(--color-accent-cyan);
+  --color-chart-1: var(--color-accent-blue);
+
+  --color-ring: var(--color-border);
+  --color-input: var(--color-bg-secondary);
+  --color-border: var(--color-border);
+  --color-destructive: var(--color-accent-red);
+  --color-accent-foreground: var(--color-text-primary);
+  --color-accent: var(--color-accent-blue);
+  --color-muted-foreground: var(--color-text-secondary);
+  --color-muted: var(--color-bg-secondary);
+  --color-secondary-foreground: var(--color-text-primary);
+  --color-secondary: var(--color-bg-secondary);
+  --color-primary-foreground: var(--color-text-primary);
+  --color-primary: var(--color-bg-primary);
+  --color-popover-foreground: var(--color-text-primary);
+  --color-popover: var(--color-bg-secondary);
+  --color-card-foreground: var(--color-text-primary);
+  --color-card: var(--color-bg-secondary);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px); */
+}
