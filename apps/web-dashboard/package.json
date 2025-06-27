@@ -1,9 +1,9 @@
 {
-  "name": "test",
+  "name": "web-dashboard",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack --port 3001",
+    "dev": "next dev --port 3000",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

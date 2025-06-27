@@ -1,10 +1,11 @@
 import {
-    MutationFunction,
-    MutationKey,
-    useMutation,
-    useMutationState,
-    useQueryClient
+  MutationFunction,
+  MutationKey,
+  useMutation,
+  useMutationState,
+  useQueryClient,
 } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { toast } from "sonner";
 
 export const useMutationData = (
@@ -28,6 +29,14 @@ export const useMutationData = (
     },
     onSettled: async () => {
       return await client.invalidateQueries({ queryKey: [queryKey] });
+    },
+    onError: (error: AxiosError["response"]) => {
+      console.error("Error occurred:", error?.status);
+      if (error?.status === 400 && error?.data?.error) {
+        toast.error("Error", {
+          description: error?.data?.error || "An error occurred",
+        });
+      }
     },
   });
 

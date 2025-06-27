@@ -1,4 +1,4 @@
 import z from "zod";
-import { uploadMovieSchema } from "./upload-movie-form/schema";
+import { uploadMovieMetadataSchema } from "./upload-movie-form/schema";
 
-export type UploadMovieInput = z.infer<typeof uploadMovieSchema>;
+export type UploadMovieInput = z.infer<typeof uploadMovieMetadataSchema>;

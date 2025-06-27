@@ -23,6 +23,7 @@
     "@aws-sdk/s3-request-presigner": "^3.835.0",
     "@repo/db": "workspace:*",
     "cloudinary": "^2.7.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "multer": "^2.0.1",

@@ -17,10 +17,18 @@ const handleMutation = async (data: UploadMovieInput) => {
 
   // Handle file properly
   if (data.thumbnail instanceof File) {
+    console.log('reachhed here', data.thumbnail);
     formData.append("thumbnail", data.thumbnail);
   }
 
-  return await uploadMovieMetadata(formData);
+  console.log("this is formData", formData);
+
+  try {
+    return await uploadMovieMetadata(formData);
+  } catch (error) {
+    console.error("Error uploading movie metadata:", error);
+    throw error; // Re-throw the error to be handled by the mutation hook
+  }
 };
 
 export const useUploadMovieMetadata = () => {

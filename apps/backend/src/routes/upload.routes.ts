@@ -1,9 +1,6 @@
 import { Router } from "express";
 import upload from "../middleware/mutler";
-import {
-  uploadMovieMetadata,
-  getMovieUploadUrl,
-} from "../controllers/upload.controller";
+import { uploadMovieMetadata } from "../controllers/upload.controller";
 
 const router: Router = Router();
 
@@ -13,6 +10,5 @@ const router: Router = Router();
 const uploadHandler = upload.single("thumbnail");
 
 router.post("/movie-metadata", uploadHandler, uploadMovieMetadata);
-router.post("/movie-url", getMovieUploadUrl);
 
 export default router;
