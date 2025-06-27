@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   MutationFunction,
   MutationKey,
@@ -8,35 +9,34 @@ import {
 import { AxiosError } from "axios";
 import { toast } from "sonner";
 
-export const useMutationData = (
+export const useMutationData = <TResponse = any>(
   mutationKey: MutationKey,
   mutationFn: MutationFunction<any, any>,
   queryKey?: string,
-  onSuccess?: () => void
+  onSuccess?: (data?: TResponse) => void // custom onSuccess callback
 ) => {
   const client = useQueryClient();
-  const { mutate, isPending } = useMutation({
+  const { mutate, isPending } = useMutation<TResponse, any>({
     mutationKey,
     mutationFn,
     onSuccess(data) {
-      if (onSuccess) onSuccess();
-      if (data?.status === 201 && data?.message) {
-        toast("Success", { description: data.message });
+      if (onSuccess) onSuccess(data);
+      console.log("before", data);
+      if ((data as any)?.status === 201 && (data as any)?.message) {
+        console.log("after", data);
+        toast("Success", { description: (data as any).message });
       }
-      if (data?.status === 400 && data?.error) {
-        toast("Error", { description: data.error });
+    },
+    onError: (error: AxiosError["response"]) => {
+      console.error("Error occurred:", error?.status, error);
+      if (error?.status === 400 && error?.error) {
+        toast.error("Error", {
+          description: error?.error || "An error occurred",
+        });
       }
     },
     onSettled: async () => {
       return await client.invalidateQueries({ queryKey: [queryKey] });
-    },
-    onError: (error: AxiosError["response"]) => {
-      console.error("Error occurred:", error?.status);
-      if (error?.status === 400 && error?.data?.error) {
-        toast.error("Error", {
-          description: error?.data?.error || "An error occurred",
-        });
-      }
     },
   });
 

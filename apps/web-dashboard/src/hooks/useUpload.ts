@@ -17,42 +17,42 @@ const handleMutation = async (data: UploadMovieInput) => {
 
   // Handle file properly
   if (data.thumbnail instanceof File) {
-    console.log('reachhed here', data.thumbnail);
     formData.append("thumbnail", data.thumbnail);
   }
 
-  console.log("this is formData", formData);
-
   try {
-    return await uploadMovieMetadata(formData);
+    const response = await uploadMovieMetadata(formData);
+    console.log("Upload response:", response);
+    return response;
   } catch (error) {
     console.error("Error uploading movie metadata:", error);
     throw error; // Re-throw the error to be handled by the mutation hook
   }
 };
-
+type UploadMovieMetadataResponse = Awaited<
+  ReturnType<typeof uploadMovieMetadata>
+>;
 export const useUploadMovieMetadata = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-  const { mutate, isPending } = useMutationData(
+  const { mutate, isPending } = useMutationData<UploadMovieMetadataResponse>(
     ["create-movie"],
     (data) => handleMutation(data),
-    "movies"
+    "movies",
+    (data) => {
+      console.log("Movie upload completed", data.data);
+      if (data?.status === 201 || data?.status === 200) {
+        dispatch(setMovieUploadUrl(data?.data));
+        router.push("upload/movie");
+      }
+    }
   );
 
   const { register, errors, onFormSubmit, watch, setValue } = useZodForm(
     uploadMovieMetadataSchema,
     (data) => {
-      mutate(data, {
-        onSuccess: (responseData) => {
-          console.log("Response from API:", responseData);
-          if (responseData.formData?.url) {
-            dispatch(setMovieUploadUrl(responseData.formData.url));
-            // router.push("/movies");
-          }
-        },
-      });
+      mutate(data);
     }
   );
 
@@ -66,6 +66,6 @@ export const useUploadMovieMetadata = () => {
   };
 };
 
-const useUploadMovie = () => {
-  // WIP: get movie upload URL and upload movie on that URL
-};
+// const useUploadMovie = () => {
+//   // WIP: get movie upload URL and upload movie on that URL
+// };

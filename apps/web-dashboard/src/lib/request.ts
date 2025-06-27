@@ -6,8 +6,11 @@ const instance = axios.create({
 });
 
 instance.interceptors.response.use(
-  (response) => response.data,
-  (error) => Promise.reject(error.response)
+  (response) => {
+    console.warn("Response:", response);
+    return response.data;
+  },
+  (error) => Promise.reject(error.response.data)
 );
 
-export default instance
+export default instance;

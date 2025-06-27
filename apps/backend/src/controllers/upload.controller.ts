@@ -56,11 +56,18 @@ export const uploadMovieMetadata = asyncHandler(async (req: any, res: any) => {
   const genreArray = Array.isArray(genre) ? genre : [genre];
 
   // GET: movieUploadUrl
-  const { uploadUrl } = await getMovieUploadUrl(title);
+  const uploadUrl = await getMovieUploadUrl(title);
 
   const response = await s3Client.send(putCommand);
 
-  const movieData = await client.movie.create({
+  if (
+    !response.$metadata.httpStatusCode ||
+    response.$metadata.httpStatusCode !== 200
+  ) {
+    return new ApiError(503, "Failed to upload thumbnail to S3").send(res);
+  }
+
+  await client.movie.create({
     data: {
       title,
       platform: platformArray, // platform should be array of enum strings
@@ -70,16 +77,7 @@ export const uploadMovieMetadata = asyncHandler(async (req: any, res: any) => {
     },
   });
 
-  return new ApiResponse(
-    201,
-    {
-      id: movieData.id,
-      title: movieData.title,
-      platform: movieData.platform,
-      genre: movieData.genre,
-      thumbnail: movieData.thumbnail,
-      key: movieData.key,
-    },
-    "Movie uploaded successfully"
-  ).send(res);
+  return new ApiResponse(201, uploadUrl, "New movie update url created").send(
+    res
+  );
 });

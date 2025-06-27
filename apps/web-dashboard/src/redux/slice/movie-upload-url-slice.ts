@@ -1,22 +1,24 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface MovieUploadUrlState {
-  url: string | null;
+  uploadUrl: string | null;
 }
 
 const initialState: MovieUploadUrlState = {
-  url: null,
+  uploadUrl: null,
 };
 
 const movieUploadUrlSlice = createSlice({
   name: "movieUploadUrl",
   initialState,
   reducers: {
-    setMovieUploadUrl: (state, action: PayloadAction<string>) => {
-      state.url = action.payload;
+    setMovieUploadUrl: (state, action: PayloadAction<MovieUploadUrlState>) => {
+      return {
+        ...action.payload,
+      };
     },
     clearMovieUploadUrl: (state) => {
-      state.url = null;
+      state.uploadUrl = null;
     },
   },
 });

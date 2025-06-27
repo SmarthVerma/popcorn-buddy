@@ -24,6 +24,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  //WIP: FIX LINITING FOR ANY type
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
