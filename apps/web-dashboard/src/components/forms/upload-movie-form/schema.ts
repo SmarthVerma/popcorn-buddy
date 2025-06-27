@@ -14,9 +14,10 @@ export const GenreEnum = z.enum([
 
 export const PlatformEnum = z.enum(["NETFLIX", "AMAZON_PRIME", "HOTSTAR"]);
 
-export const uploadMovieSchema = z.object({
+export const uploadMovieMetadataSchema = z.object({
   title: z.string().min(1, "Title is required"),
   genre: GenreEnum,
   platform: PlatformEnum,
   thumbnail: z.instanceof(File, { message: "Thumbnail must be a file" }),
 });
+

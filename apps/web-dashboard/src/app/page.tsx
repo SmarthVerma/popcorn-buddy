@@ -62,23 +62,23 @@ export default function AdminLoginPage() {
         </div>
 
         {/* Floating Elements */}
-        <div className="absolute top-20 left-20 w-16 h-16 bg-blue-500/20 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute top-40 right-32 w-12 h-12 bg-cyan-500/20 rounded-full blur-lg animate-pulse delay-1000"></div>
-        <div className="absolute bottom-32 left-16 w-20 h-20 bg-purple-500/20 rounded-full blur-xl animate-pulse delay-2000"></div>
+        <div className="absolute top-20 left-20 w-16 h-16 bg-glow rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute top-40 right-32 w-12 h-12 bg-accent rounded-full blur-lg animate-pulse delay-1000"></div>
+        <div className="absolute bottom-32 left-16 w-20 h-20 bg-highlight rounded-full blur-xl animate-pulse delay-2000"></div>
 
         <div className="relative z-10 flex flex-col justify-center items-center p-12 w-full">
           {/* Hero Content */}
           <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-r from-red-500 to-red-400 rounded-2xl mb-8 shadow-2xl">
+            <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-r from-red-secondary to-red-primary rounded-2xl mb-8 shadow-2xl">
               <Shield className="w-12 h-12 text-white" />
             </div>
             <h1 className="text-white text-5xl font-bold mb-4 leading-tight">
               Admin
-              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent block">
+              <span className="bg-gradient-to-r from-blue-secondary to-cyan bg-clip-text text-transparent block">
                 Control Center
               </span>
             </h1>
-            <p className="text-slate-300 text-xl max-w-md mx-auto leading-relaxed">
+            <p className="text-subtle text-xl max-w-md mx-auto leading-relaxed">
               Manage your platform with powerful tools and real-time insights
             </p>
           </div>
@@ -86,24 +86,24 @@ export default function AdminLoginPage() {
           {/* Feature Grid */}
           <div className="grid grid-cols-2 gap-6 mb-12 max-w-md">
             <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center group hover:bg-white/10 transition-all duration-300">
-              <BarChart3 className="w-8 h-8 text-blue-400 mx-auto mb-3 group-hover:scale-110 transition-transform" />
+              <BarChart3 className="w-8 h-8 text-blue-secondary mx-auto mb-3 group-hover:scale-110 transition-transform" />
               <h3 className="text-white font-semibold mb-1">Analytics</h3>
-              <p className="text-slate-400 text-sm">Real-time data</p>
+              <p className="text-muted text-sm">Real-time data</p>
             </div>
             <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center group hover:bg-white/10 transition-all duration-300">
-              <Users className="w-8 h-8 text-green-400 mx-auto mb-3 group-hover:scale-110 transition-transform" />
+              <Users className="w-8 h-8 text-green mx-auto mb-3 group-hover:scale-110 transition-transform" />
               <h3 className="text-white font-semibold mb-1">Users</h3>
-              <p className="text-slate-400 text-sm">Manage accounts</p>
+              <p className="text-muted text-sm">Manage accounts</p>
             </div>
             <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center group hover:bg-white/10 transition-all duration-300">
-              <Settings className="w-8 h-8 text-purple-400 mx-auto mb-3 group-hover:scale-110 transition-transform" />
+              <Settings className="w-8 h-8 text-purple mx-auto mb-3 group-hover:scale-110 transition-transform" />
               <h3 className="text-white font-semibold mb-1">Settings</h3>
-              <p className="text-slate-400 text-sm">System config</p>
+              <p className="text-muted text-sm">System config</p>
             </div>
             <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center group hover:bg-white/10 transition-all duration-300">
-              <Shield className="w-8 h-8 text-red-400 mx-auto mb-3 group-hover:scale-110 transition-transform" />
+              <Shield className="w-8 h-8 text-red-primary mx-auto mb-3 group-hover:scale-110 transition-transform" />
               <h3 className="text-white font-semibold mb-1">Security</h3>
-              <p className="text-slate-400 text-sm">Access control</p>
+              <p className="text-muted text-sm">Access control</p>
             </div>
           </div>
 
@@ -111,17 +111,17 @@ export default function AdminLoginPage() {
           <div className="flex items-center space-x-8 text-center">
             <div>
               <div className="text-3xl font-bold text-white mb-1">99.9%</div>
-              <div className="text-slate-400 text-sm">Uptime</div>
+              <div className="text-muted text-sm">Uptime</div>
             </div>
-            <div className="w-px h-12 bg-slate-600"></div>
+            <div className="w-px h-12 bg-strong"></div>
             <div>
               <div className="text-3xl font-bold text-white mb-1">24/7</div>
-              <div className="text-slate-400 text-sm">Support</div>
+              <div className="text-muted text-sm">Support</div>
             </div>
-            <div className="w-px h-12 bg-slate-600"></div>
+            <div className="w-px h-12 bg-strong"></div>
             <div>
               <div className="text-3xl font-bold text-white mb-1">256-bit</div>
-              <div className="text-slate-400 text-sm">Encryption</div>
+              <div className="text-muted text-sm">Encryption</div>
             </div>
           </div>
         </div>
@@ -147,25 +147,25 @@ export default function AdminLoginPage() {
             <h1 className="text-white text-3xl font-bold mb-2">
               Admin Dashboard
             </h1>
-            <p className="text-slate-400 text-lg">
+            <p className="text-muted text-lg">
               Sign in to access the admin panel
             </p>
           </div>
 
           {/* Login Form */}
-          <div className="bg-slate-800 rounded-2xl p-8 border border-slate-700 shadow-2xl">
+          <div className="bg-primary-dark rounded-2xl p-8 border border-foreground shadow-2xl">
             <div className="space-y-6">
               {/* Email field */}
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="h-5 w-5 text-slate-400" />
+                  <Mail className="h-5 w-5 text-muted" />
                 </div>
                 <input
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full bg-slate-700 text-white rounded-lg pl-10 pr-4 py-4 border border-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all duration-200 text-lg"
+                  className="w-full bg-foreground text-white rounded-lg pl-10 pr-4 py-4 border border-strong focus:border-blue-tertiary focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all duration-200 text-lg"
                   placeholder="Admin Email"
                   required
                 />
@@ -174,20 +174,20 @@ export default function AdminLoginPage() {
               {/* Password field */}
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-slate-400" />
+                  <Lock className="h-5 w-5 text-muted" />
                 </div>
                 <input
                   type={showPassword ? "text" : "password"}
                   name="password"
                   value={formData.password}
                   onChange={handleInputChange}
-                  className="w-full bg-slate-700 text-white rounded-lg pl-10 pr-12 py-4 border border-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all duration-200 text-lg"
+                  className="w-full bg-foreground text-white rounded-lg pl-10 pr-12 py-4 border border-strong focus:border-blue-tertiary focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all duration-200 text-lg"
                   placeholder="Password"
                   required
                 />
                 <button
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-white transition-colors"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-muted hover:text-white transition-colors"
                 >
                   {showPassword ? (
                     <EyeOff className="h-5 w-5" />
@@ -200,7 +200,7 @@ export default function AdminLoginPage() {
               {/* Login button */}
               <button
                 onClick={handleSubmit}
-                className="w-full bg-gradient-to-r from-red-600/80 to-rose-500/70 text-white rounded-lg py-4 text-lg font-semibold hover:from-red-700 hover:to-rose-700 hover:cursor-pointer focus:ring-2 focus:ring-red-500/50 focus:outline-none transition-all duration-200 transform hover:scale-[1.02] shadow-lg"
+                className="w-full bg-gradient-to-r from-red-tertiary/80 to-rose-500/70 text-white rounded-lg py-4 text-lg font-semibold hover:from-red-quaternary hover:to-rose-700 hover:cursor-pointer focus:ring-2 focus:ring-red-500/50 focus:outline-none transition-all duration-200 transform hover:scale-[1.02] shadow-lg"
               >
                 Access Dashboard
               </button>
@@ -209,14 +209,14 @@ export default function AdminLoginPage() {
 
           {/* Security Notice */}
           <div className="mt-8 text-center">
-            <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4">
+            <div className="bg-primary-dark/50 border border-foreground rounded-lg p-4">
               <div className="flex items-center justify-center mb-2">
-                <Lock className="h-4 w-4 text-blue-400 mr-2" />
-                <span className="text-slate-300 text-sm font-medium">
+                <Lock className="h-4 w-4 text-blue-secondary mr-2" />
+                <span className="text-subtle text-sm font-medium">
                   Secure Admin Access
                 </span>
               </div>
-              <p className="text-slate-400 text-xs">
+              <p className="text-muted text-xs">
                 This is a protected area. Only authorized administrators can
                 access this dashboard.
               </p>

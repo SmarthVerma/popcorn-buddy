@@ -13,6 +13,7 @@ const useZodForm = (
     register,
     watch,
     reset,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm<z.infer<typeof schema>>({
@@ -22,7 +23,7 @@ const useZodForm = (
 
   const onFormSubmit = handleSubmit(async (values) => mutation({ ...values }));
 
-  return { register, watch, reset, onFormSubmit, errors };
+  return { register, watch, reset, setValue, onFormSubmit, errors };
 };
 
 export default useZodForm;

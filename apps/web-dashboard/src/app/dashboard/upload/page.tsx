@@ -4,7 +4,6 @@ const UploadPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800">
       {/* Background Pattern */}
-      <div className="absolute inset-0 bg-grid-gray-600 bg-[size:20px_20px] opacity-20" />
 
       {/* Content */}
       <div className="relative z-10">

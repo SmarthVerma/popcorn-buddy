@@ -1,6 +1,5 @@
 "use client";
-import { useUploadMovie } from "@/hooks/useUploadMovie";
-import { ErrorMessage } from "@hookform/error-message";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,7 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -18,10 +16,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Upload, Film, Loader2 } from "lucide-react";
+import { useUploadMovieMetadata } from "@/hooks/useUpload";
+import { ErrorMessage } from "@hookform/error-message";
+import { Film, Loader2, Upload } from "lucide-react";
+import { GENRE_OPTIONS, PLATFORM_OPTIONS } from "./constant";
 
 const UploadMovieForm = () => {
-  const { errors, isPending, onFormSubmit, register } = useUploadMovie();
+  const { errors, isPending, onFormSubmit, register, setValue, watch } =
+    useUploadMovieMetadata();
 
   return (
     <Card className="w-full max-w-2xl mx-auto shadow-2xl bg-black/50 backdrop-blur-sm border border-gray-700/50">
@@ -73,7 +75,10 @@ const UploadMovieForm = () => {
             >
               Genre
             </Label>
-            <Select {...register("genre")}>
+            <Select
+              value={watch("genre")}
+              onValueChange={(value) => setValue("genre", value)}
+            >
               <SelectTrigger className="h-12 text-base bg-gray-900/50 border-gray-600 text-white focus:border-gray-400 focus:ring-gray-400">
                 <SelectValue
                   placeholder="Select a genre"
@@ -81,67 +86,24 @@ const UploadMovieForm = () => {
                 />
               </SelectTrigger>
               <SelectContent className="bg-gray-900 border-gray-700">
-                <SelectItem
-                  value="ACTION"
-                  className="text-white hover:bg-gray-800 focus:bg-gray-800"
-                >
-                  Action
-                </SelectItem>
-                <SelectItem
-                  value="ADVENTURE"
-                  className="text-white hover:bg-gray-800 focus:bg-gray-800"
-                >
-                  Adventure
-                </SelectItem>
-                <SelectItem
-                  value="COMEDY"
-                  className="text-white hover:bg-gray-800 focus:bg-gray-800"
-                >
-                  Comedy
-                </SelectItem>
-                <SelectItem
-                  value="DRAMA"
-                  className="text-white hover:bg-gray-800 focus:bg-gray-800"
-                >
-                  Drama
-                </SelectItem>
-                <SelectItem
-                  value="HORROR"
-                  className="text-white hover:bg-gray-800 focus:bg-gray-800"
-                >
-                  Horror
-                </SelectItem>
-                <SelectItem
-                  value="ROMANCE"
-                  className="text-white hover:bg-gray-800 focus:bg-gray-800"
-                >
-                  Romance
-                </SelectItem>
-                <SelectItem
-                  value="SCI_FI"
-                  className="text-white hover:bg-gray-800 focus:bg-gray-800"
-                >
-                  Sci-Fi
-                </SelectItem>
-                <SelectItem
-                  value="THRILLER"
-                  className="text-white hover:bg-gray-800 focus:bg-gray-800"
-                >
-                  Thriller
-                </SelectItem>
-                <SelectItem
-                  value="FANTASY"
-                  className="text-white hover:bg-gray-800 focus:bg-gray-800"
-                >
-                  Fantasy
-                </SelectItem>
+                {GENRE_OPTIONS.map((option) => (
+                  <SelectItem
+                    key={option.value}
+                    value={option.value}
+                    className="text-white hover:bg-gray-800 focus:bg-gray-800"
+                  >
+                    {option.label}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
-            {errors.genre && (
-              <p className="text-sm text-red-400 font-medium">
-                {errors.genre.message}
-              </p>
-            )}
+            <ErrorMessage
+              errors={errors}
+              name="genre"
+              render={({ message }) => (
+                <p className="text-sm text-red-400 font-medium">{message}</p>
+              )}
+            />
           </div>
 
           {/* Platform Field */}
@@ -152,7 +114,10 @@ const UploadMovieForm = () => {
             >
               Platform
             </Label>
-            <Select {...register("platform")}>
+            <Select
+              value={watch("platform")}
+              onValueChange={(value) => setValue("platform", value)}
+            >
               <SelectTrigger className="h-12 text-base bg-gray-900/50 border-gray-600 text-white focus:border-gray-400 focus:ring-gray-400">
                 <SelectValue
                   placeholder="Select a platform"
@@ -160,31 +125,24 @@ const UploadMovieForm = () => {
                 />
               </SelectTrigger>
               <SelectContent className="bg-gray-900 border-gray-700">
-                <SelectItem
-                  value="NETFLIX"
-                  className="text-white hover:bg-gray-800 focus:bg-gray-800"
-                >
-                  Netflix
-                </SelectItem>
-                <SelectItem
-                  value="AMAZON_PRIME"
-                  className="text-white hover:bg-gray-800 focus:bg-gray-800"
-                >
-                  Amazon Prime
-                </SelectItem>
-                <SelectItem
-                  value="HOTSTAR"
-                  className="text-white hover:bg-gray-800 focus:bg-gray-800"
-                >
-                  Hotstar
-                </SelectItem>
+                {PLATFORM_OPTIONS.map((option) => (
+                  <SelectItem
+                    key={option.value}
+                    value={option.value}
+                    className="text-white hover:bg-gray-800 focus:bg-gray-800"
+                  >
+                    {option.label}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
-            {errors.platform && (
-              <p className="text-sm text-red-400 font-medium">
-                {errors.platform.message}
-              </p>
-            )}
+            <ErrorMessage
+              errors={errors}
+              name="platform"
+              render={({ message }) => (
+                <p className="text-sm text-red-400 font-medium">{message}</p>
+              )}
+            />
           </div>
 
           {/* Thumbnail Field */}
@@ -200,23 +158,30 @@ const UploadMovieForm = () => {
                 id="thumbnail"
                 type="file"
                 accept="image/*"
-                {...register("thumbnail")}
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    setValue("thumbnail", file);
+                  }
+                }}
                 className="h-12 text-base bg-gray-900/50 border-gray-600 text-white file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-gray-800 file:text-gray-200 hover:file:bg-gray-700 transition-colors focus:border-gray-400 focus:ring-gray-400"
               />
               <Upload className="absolute right-3 top-3 h-6 w-6 text-gray-400 pointer-events-none" />
             </div>
-            {errors.thumbnail && (
-              <p className="text-sm text-red-400 font-medium">
-                {errors.thumbnail.message}
-              </p>
-            )}
+            <ErrorMessage
+              errors={errors}
+              name="thumbnail"
+              render={({ message }) => (
+                <p className="text-sm text-red-400 font-medium">{message}</p>
+              )}
+            />
           </div>
 
           {/* Submit Button */}
           <Button
             type="submit"
             disabled={isPending}
-            className="w-full h-12 text-base font-semibold bg-gradient-to-r from-gray-800 to-black hover:from-gray-700 hover:to-gray-900 border border-gray-600 text-white transition-all duration-200 shadow-lg"
+            className="w-full h-12 cursor-pointer text-base font-semibold bg-gradient-to-r from-gray-800 to-black hover:from-gray-700 hover:to-gray-900 border border-gray-600 text-white transition-all duration-200 shadow-lg"
           >
             {isPending ? (
               <>
