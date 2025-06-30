@@ -3,6 +3,7 @@ type Props = {
 };
 
 const page = ({ searchParams }: Props) => {
+  //WIP: notifications screen
   return <div>Notificatdions</div>;
 };
 

@@ -23,7 +23,11 @@ const getMovieUrl = async (Key: string) => {
   return signedUrl;
 };
 
-export const getMovieUploadUrl = async (title: string) => {
+export const getMovieUploadUrl = async (
+  title: string,
+  extension: string,
+  contentType: string
+) => {
   if (!title) throw new Error("Title is required");
 
   const s3Client = new S3Client({
@@ -34,13 +38,14 @@ export const getMovieUploadUrl = async (title: string) => {
     },
   });
 
-  const key = `${title}/${movieSlug(title)}`;
+  const key = `${title}/${movieSlug(title, extension)}`;
 
   // SINCE no ContentType is provided, we assume the frontend will handle the file type
   const command = new PutObjectCommand({
-    Bucket: process.env.AWS_S3_BUCKET_NAME!,
+    Bucket: process.env.AWS_S3_RAW_VIDEOS_FOLDER!,
     Key: key,
-    ACL: "public-read",
+    ACL: "public-read-write",
+    ContentType: contentType || "application/octet-stream", // Default to binary if not provided
   });
 
   const uploadUrl = await getSignedUrl(s3Client, command, { expiresIn: 3600 });

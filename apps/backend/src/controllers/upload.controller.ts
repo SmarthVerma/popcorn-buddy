@@ -11,7 +11,7 @@ import ApiResponse from "../utils/controller-utils/ApiResponse";
 import ApiError from "../utils/controller-utils/ApiError";
 
 export const uploadMovieMetadata = asyncHandler(async (req: any, res: any) => {
-  const { title, genre, platform } = req.body;
+  const { title, genre, platform, extension, contentType } = req.body;
   const file = req.file as Express.Multer.File;
 
   const s3Client = new S3Client({
@@ -56,7 +56,7 @@ export const uploadMovieMetadata = asyncHandler(async (req: any, res: any) => {
   const genreArray = Array.isArray(genre) ? genre : [genre];
 
   // GET: movieUploadUrl
-  const uploadUrl = await getMovieUploadUrl(title);
+  const uploadUrl = await getMovieUploadUrl(title, extension, contentType);
 
   const response = await s3Client.send(putCommand);
 

@@ -1,11 +1,13 @@
 import { uploadMovieMetadataSchema } from "@/components/forms/upload-movie-form/schema";
 import { uploadMovieMetadata } from "@/lib/api";
-import { setMovieUploadUrl } from "@/redux/slice/movie-upload-url-slice";
+import { setMovieUploadUrl } from "@/redux/slices/movie-upload-url-slice";
 import { useAppDispatch } from "@/redux/store";
 import { useRouter } from "next/navigation";
 import { useMutationData } from "./react-query-hooks/useMutationData";
 import useZodForm from "./useZodForm";
 import { UploadMovieInput } from "@/components/forms/types";
+import { uploadService } from "@/services/uploadService";
+import { toast } from "sonner";
 
 const handleMutation = async (data: UploadMovieInput) => {
   console.log("Uploading movie data:", data);
@@ -20,10 +22,20 @@ const handleMutation = async (data: UploadMovieInput) => {
     formData.append("thumbnail", data.thumbnail);
   }
 
+  if (data.movieFile instanceof File) {
+    formData.append("extension", data.movieFile.name.split(".").pop() || "");
+    formData.append("contentType", data.movieFile.type);
+  }
+
   try {
     const response = await uploadMovieMetadata(formData);
-    console.log("Upload response:", response);
-    return response;
+
+    const uploadId = await uploadService.startUpload(
+      data.movieFile,
+      response.data.uploadUrl
+    );
+
+    return uploadId;
   } catch (error) {
     console.error("Error uploading movie metadata:", error);
     throw error; // Re-throw the error to be handled by the mutation hook
@@ -36,16 +48,13 @@ export const useUploadMovieMetadata = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-  const { mutate, isPending } = useMutationData<UploadMovieMetadataResponse>(
+  const { mutate, isPending } = useMutationData<{ uploadId: string }>(
     ["create-movie"],
     (data) => handleMutation(data),
     "movies",
     (data) => {
-      console.log("Movie upload completed", data.data);
-      if (data?.status === 201 || data?.status === 200) {
-        dispatch(setMovieUploadUrl(data?.data));
-        router.push("upload/movie");
-      }
+      toast.success("Movie is uploading with id: " + data?.uploadId);
+      router.push("upload/movie");
     }
   );
 
@@ -65,7 +74,3 @@ export const useUploadMovieMetadata = () => {
     setValue,
   };
 };
-
-// const useUploadMovie = () => {
-//   // WIP: get movie upload URL and upload movie on that URL
-// };

@@ -3,10 +3,12 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import type { TypedUseSelectorHook } from "react-redux";
 import { useDispatch, useSelector } from "react-redux";
-import movieUploadUrlReducer from "@/redux/slice/movie-upload-url-slice";
+import movieUploadUrlReducer from "@/redux/slices/movie-upload-url-slice";
+import uploadReducer from "./slices/uploadSlice";
 
 const rootReducer = combineReducers({
   movieUploadUrlReducer,
+  uploadReducer,
 });
 
 export const store = configureStore({

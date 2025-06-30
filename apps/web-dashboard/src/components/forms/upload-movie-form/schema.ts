@@ -19,5 +19,5 @@ export const uploadMovieMetadataSchema = z.object({
   genre: GenreEnum,
   platform: PlatformEnum,
   thumbnail: z.instanceof(File, { message: "Thumbnail must be a file" }),
+  movieFile: z.instanceof(File, { message: "Movie file is required" }),
 });
-

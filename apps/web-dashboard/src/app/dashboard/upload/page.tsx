@@ -1,7 +1,6 @@
 import UploadMovieForm from "@/components/forms/upload-movie-form";
 
 const UploadPage = () => {
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800">
       {/* Background Pattern */}

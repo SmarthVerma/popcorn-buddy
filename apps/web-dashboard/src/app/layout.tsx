@@ -24,7 +24,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  //WIP: FIX LINITING FOR ANY type
+  //WIP: FIX LINITING FOR ANY type and console.log
+  //WIP: undefined id and make websocket / redis server
+  //WIP: automatic movie searcher for uploading movies
+
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>

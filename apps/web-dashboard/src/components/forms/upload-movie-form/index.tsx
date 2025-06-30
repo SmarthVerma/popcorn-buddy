@@ -20,6 +20,8 @@ import { useUploadMovieMetadata } from "@/hooks/useUpload";
 import { ErrorMessage } from "@hookform/error-message";
 import { Film, Loader2, Upload } from "lucide-react";
 import { GENRE_OPTIONS, PLATFORM_OPTIONS } from "./constant";
+import { useDropzone } from "react-dropzone";
+import Dropzone from "@/components/global/dropzone/Dropzone";
 
 const UploadMovieForm = () => {
   const { errors, isPending, onFormSubmit, register, setValue, watch } =
@@ -176,6 +178,14 @@ const UploadMovieForm = () => {
               )}
             />
           </div>
+
+          <Dropzone
+            accept={{ "video/*": [] }}
+            multiple={false}
+            onFilesSelected={(files) => {
+              if (files[0]) setValue("movieFile", files[0]);
+            }}
+          />
 
           {/* Submit Button */}
           <Button

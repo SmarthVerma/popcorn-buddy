@@ -1,0 +1,25 @@
+{
+  "name": "worker-sqs-listener",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsc-watch --onSuccess \"node dist/index\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-ecs": "^3.834.0",
+    "@aws-sdk/client-sqs": "^3.831.0",
+    "aws-lambda": "^1.0.7",
+    "dotenv": "^16.5.0",
+    "lambda": "^0.10.3"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.150",
+    "@types/node": "^24.0.3",
+    "aws-lamda": "link:@types/aws-lamda",
+    "tsc-watch": "^7.1.1"
+  }
+}
