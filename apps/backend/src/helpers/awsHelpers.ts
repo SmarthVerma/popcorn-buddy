@@ -57,7 +57,7 @@ export const getThumbnailUrl = (Key: string) => {
 
 export const movieSlug = (title: string, ext?: string) => {
   if (!title) return "";
-r
+
   const slug = title
     .toLowerCase()
     .normalize("NFKD") // Handles accents/diacritics
