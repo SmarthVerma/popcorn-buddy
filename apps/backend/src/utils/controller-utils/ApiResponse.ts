@@ -18,7 +18,7 @@
  */
 
 type ApiResponseCodes = 200 | 201;
-
+     
 type MessageAllowed<T extends ApiResponseCodes> = T extends 200
   ? never
   : string;

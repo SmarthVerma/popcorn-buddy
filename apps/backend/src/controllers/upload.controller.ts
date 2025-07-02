@@ -14,14 +14,6 @@ export const uploadMovieMetadata = asyncHandler(async (req: any, res: any) => {
   const { title, genre, platform, extension, contentType } = req.body;
   const file = req.file as Express.Multer.File;
 
-  const s3Client = new S3Client({
-    region: process.env.AWS_REGION!,
-    credentials: {
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-    },
-  });
-
   if (!req.file) {
     return new ApiError(400, "Please upload asd thumbnail.").send(res);
   }
@@ -31,13 +23,20 @@ export const uploadMovieMetadata = asyncHandler(async (req: any, res: any) => {
       res
     );
   }
+
+  const s3Client = new S3Client({
+    region: process.env.AWS_REGION!,
+    credentials: {
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+    },
+  });
   // Access the uploaded
 
   const thumbnailPath = file.path;
-
   const fileExtension = file.mimetype?.split("/")[1] || "jpg";
 
-  const key = `${title}/${movieSlug(title, fileExtension)}`;
+  const key = `${title}/${movieSlug(title, fileExtension)}`; // raider2.jpg
 
   const putCommand = new PutObjectCommand({
     Bucket: process.env.AWS_S3_BUCKET_NAME!,
@@ -64,7 +63,7 @@ export const uploadMovieMetadata = asyncHandler(async (req: any, res: any) => {
     !response.$metadata.httpStatusCode ||
     response.$metadata.httpStatusCode !== 200
   ) {
-    return new ApiError(503, "Failed to upload thumbnail to S3").send(res);
+    return new ApiError(400, "Failed to upload thumbnail to S3").send(res);
   }
 
   await client.movie.create({

@@ -38,14 +38,13 @@ export const getMovieUploadUrl = async (
     },
   });
 
-  const key = `${title}/${movieSlug(title, extension)}`;
+  const key = `${title}/${movieSlug(title, extension)}`; // raider2/raider2.mp4
 
-  // SINCE no ContentType is provided, we assume the frontend will handle the file type
   const command = new PutObjectCommand({
     Bucket: process.env.AWS_S3_RAW_VIDEOS_FOLDER!,
     Key: key,
-    ACL: "public-read-write",
     ContentType: contentType || "application/octet-stream", // Default to binary if not provided
+    ACL: "public-read-write",
   });
 
   const uploadUrl = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
@@ -58,7 +57,7 @@ export const getThumbnailUrl = (Key: string) => {
 
 export const movieSlug = (title: string, ext?: string) => {
   if (!title) return "";
-
+r
   const slug = title
     .toLowerCase()
     .normalize("NFKD") // Handles accents/diacritics

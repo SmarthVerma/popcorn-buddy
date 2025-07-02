@@ -24,3 +24,4 @@ export const FolderIcon: React.FC<IconProps> = ({
     />
   </svg>
 );
+  
