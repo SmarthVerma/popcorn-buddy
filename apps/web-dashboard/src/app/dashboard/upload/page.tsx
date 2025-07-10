@@ -1,4 +1,6 @@
+import SearchMovieForm from "@/components/forms/search-movie-library";
 import UploadMovieForm from "@/components/forms/upload-movie-form";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 const UploadPage = () => {
   return (
@@ -22,7 +24,27 @@ const UploadPage = () => {
 
         {/* Form Container */}
         <div className="px-4 pb-12">
-          <UploadMovieForm />
+          <Tabs defaultValue="upload" className="max-w-4xl mx-auto">
+            <TabsList className="mb-6 flex justify-center">
+              <TabsTrigger className="cursor-pointer" value="upload">
+                Upload Movie
+              </TabsTrigger>
+              <TabsTrigger className="cursor-pointer" value="manage">
+                Upload from Library
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="upload">
+              <UploadMovieForm />
+            </TabsContent>
+
+            <TabsContent value="manage">
+              <div className="text-center text-gray-300 py-12">
+                {/* Replace this with actual management functionality */}
+                <SearchMovieForm />
+              </div>
+            </TabsContent>
+          </Tabs>
         </div>
 
         {/* Features Section */}
